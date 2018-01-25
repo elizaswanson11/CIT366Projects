@@ -1,3 +1,7 @@
 button .btn .btn-danger, button .btn btn-primary {
   display: inline-block;
 }
+.panel-heading {
+  display: block;
+  padding-bottom: 6em;
+}

@@ -16,7 +16,7 @@ export class ContactListComponent implements OnInit {
       "jacksonk@byui.edu",
       "208-496-3771",
       null,
-      "://web.byui.edu/Directory/Employee/jacksonk.jpg"),
+      "https://web.byui.edu/Directory/Employee/jacksonk.jpg"),
     new Contact(
       2,
       "Bro. Barzee",
