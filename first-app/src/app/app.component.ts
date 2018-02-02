@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  name = 'App Works!';
+  selectedFeature: string;
+  switchView(selectedFeature: string) {
+    this.selectedFeature = selectedFeature;
+  }
 }
