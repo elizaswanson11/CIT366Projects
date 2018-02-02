@@ -3,5 +3,8 @@ button .btn .btn-danger, button .btn btn-primary {
 }
 .panel-heading {
   display: block;
-  padding-bottom: 6em;
+  padding-bottom: 14em;
+}
+img {
+  max-width: 100px;
 }
