@@ -1,19 +1,22 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { Message } from '../message.model';
 import { Contact } from '../../contacts/contact.model';
+import { ContactService } from "../../contacts/contact.service";
 
 @Component({
   selector: 'app-message-item',
   templateUrl: './message-item.component.html',
-  styleUrls: ['./message-item.component.css']
+  styleUrls: ['./message-item.component.css'],
+  providers: [ContactService]
 })
 export class MessageItemComponent implements OnInit {
-@Input() message: Message;
+  @Input() message: Message;
   messageSender: string = "";
-  constructor() { }
+  canEdit: boolean = false;
+  constructor(private contactService: ContactService) {}
 
   ngOnInit() {
-    this.messageSender = Contact.name;
+    let contact: Contact = this.contactService.getContact(this.message.sender);
+    this.messageSender = contact.name;
   }
-
 }
