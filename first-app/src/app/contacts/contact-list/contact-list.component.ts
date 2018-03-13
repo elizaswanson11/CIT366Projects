@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import { Contact } from '../contact.model';
 import {ContactService} from "../contact.service";
 
@@ -13,10 +13,16 @@ export class ContactListComponent implements OnInit {
 
   constructor(private contactService: ContactService) {}
 
-  contacts: Contact[] = [];
+  @Input() contacts: Contact[] = [];
 
   ngOnInit() {
     this.contacts = this.contactService.getContacts();
+    this.contactService.contactChangedEvent
+      .subscribe(
+        (contactArray: Contact[]) => {
+          this.contacts = contactArray;
+        }
+      );
   }
 
   onSelected(contact: Contact){
