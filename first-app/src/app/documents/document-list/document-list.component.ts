@@ -14,14 +14,14 @@ import {Subject} from "rxjs/Subject";
 export class DocumentListComponent implements OnInit, OnDestroy {
 
   @Input() documents: Document[] = [];
-  private subscription: Subscription
+  private subscription: Subscription;
 
   constructor(private documentsService: DocumentsService) {}
 
   ngOnInit() {
     this.documents = this.documentsService.getDocuments();
 
-    this.subscription = this.documentsService.documentChangedEvent
+    this.subscription = this.documentsService.documentListChangedEvent
       .subscribe(
         (documentList: Document[]) => {
          this.documents  = documentList;

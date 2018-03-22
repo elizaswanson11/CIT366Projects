@@ -10,6 +10,8 @@ export class DocumentsService {
 
   documents: Document[] = [];
 
+
+
   @Output() documentSelectedEvent: EventEmitter<Document> = new EventEmitter<Document>();
   @Output() documentChangedEvent: EventEmitter<Document[]> = new EventEmitter<Document[]>();
   documentListChangedEvent = new Subject<Document[]>();
@@ -67,7 +69,7 @@ export class DocumentsService {
   }
 
   updateDocument(originalDocument: Document,
-                 newDocument: Document) {
+                 updatedDocument: Document) {
     if (!originalDocument) {
       return;
     }
@@ -76,12 +78,9 @@ export class DocumentsService {
     if (pos < 0) {
       return;
     }
-
-    newDocument.id = originalDocument.id;
-    this.documents[pos] = newDocument;
-    var documentsListClone = this.documents.slice();
-    this.documentListChangedEvent.next(documentsListClone);
-
+    updatedDocument.id = originalDocument.id;
+    this.documents[pos] = updatedDocument;
+    this.documentListChangedEvent.next(this.getDocuments())
   }
 
   deleteDocument(document: Document) {
