@@ -87,15 +87,13 @@ export class DocumentsService {
     if (!document) {
       return;
     }
-
     var pos = this.documents.indexOf(document);
     if (pos < 0) {
       return;
     }
-
-    this.documents = this.documents.splice(pos, 1);
-    var documentsListClone = this.documents.slice();
-    this.documentListChangedEvent.next(documentsListClone);
+    this.documents.splice(pos, 1);
+    console.log(this.documents);
+    this.documentListChangedEvent.next(this.documents);
   }
 
 

@@ -35,9 +35,7 @@ export class DocumentEditComponent implements OnInit {
           if (!this.originalDocument) {
             return;
           }
-          // set editMode to true
           this.editMode = true;
-          // this.document = clone of this.originalDocument (parse
           this.document = JSON.parse(JSON.stringify(this.originalDocument));
         }
       );
@@ -45,9 +43,9 @@ export class DocumentEditComponent implements OnInit {
 
   onSubmit(form: NgForm) {
   //   values = form.value // get values from form’s fields
-    console.log(form.value.name);
+    console.log(this.editMode);
     let newDocument = new Document(String(this.documentService.getMaxId()), form.value.name, form.value.description, form.value.url, null);
-    if (this.editMode = true) {
+    if (this.editMode === true) {
       this.documentService.updateDocument(this.originalDocument, newDocument);
     } else {
       this.documentService.addDocument(newDocument);
