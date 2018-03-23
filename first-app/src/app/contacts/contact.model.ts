@@ -1,6 +1,7 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
 
 @Injectable()
+
 export class Contact {
   public id: string;
   public name: string;
@@ -17,4 +18,5 @@ export class Contact {
     this.imageUrl = imageUrl;
     this.group = group;
   }
+
 }

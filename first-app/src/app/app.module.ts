@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { AppRouting } from './app-routing';
+import { AppRouting } from './app-routing';;
 
 import { AppComponent } from './app.component';
 import { ContactsComponent } from './contacts/contacts.component';
@@ -23,6 +23,7 @@ import { DocumentViewComponent } from './documents/document-view/document-view.c
 import { DocumentEditComponent } from './documents/document-edit/document-edit.component';
 import { WindRefService} from "./wind-ref.service";
 import { ContactEditComponent } from './contacts/contact-edit/contact-edit.component';
+import { DndModule } from "ng2-dnd";
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { ContactEditComponent } from './contacts/contact-edit/contact-edit.compo
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRouting
+    AppRouting,
+    DndModule.forRoot()
   ],
   providers: [
     WindRefService
