@@ -1,32 +1,32 @@
 <div class="panel panel-default">
   <div class="panel-body">
-    <form id="contact-edit" #f="ngForm" (submit)="onSubmit(f)">
+    <form id="contact-edit" #f="ngForm" (ngSubmit)="onSubmit(f)">
       <div class="row">
         <div class="col-sm-12 form-group">
           <label for="name">Name</label>
           <input
+            #name = "ngModel"
             type="text"
             id="name"
             class="form-control required"
             size="120"
             max="120"
             name="name"
-            #name = "ngModel"
-            [ngModel]=contact?.name
+            ngModel="{{contact?.name}}"
             required>
         </div>
 
         <div class="col-sm-12 form-group">
           <label for="email">Email</label>
           <input
+            #email = "ngModel"
             type="text"
             id="email"
             class="form-control required"
             size="120"
             max="255"
             name="email"
-            [ngModel]=contact?.email
-            #email = "ngModel"
+            ngModel="{{contact?.email}}"
             required
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
           <div class="alert alert-danger" *ngIf="!email.valid && email.touched">Enter a valid email address.</div>
@@ -35,29 +35,28 @@
         <div class="col-sm-12 form-group">
           <label for="phone">Phone</label>
           <input
-            pattern = "\D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})\D*"
+            #phone = "ngModel"
             type="text"
             id="phone"
             class="form-control invalid"
             size="150"
             max="255"
             name="phone"
-            [ngModel]=contact?.phone
-            #phone = "ngModel">
-            <div class="alert alert-danger" *ngIf="!phone.valid && phone.touched">Enter a valid phone number.</div>
+            ngModel="{{contact?.phone}}"
+            pattern = "\D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})\D*">
+          <div class="alert alert-danger" *ngIf="!phone.valid && phone.touched">Enter a valid phone number.</div>
         </div>
-
         <div class="col-sm-12 form-group">
           <label for="imageUrl">Image URL</label>
           <input
+            #imageUrl = "ngModel"
             type="text"
             id="imageUrl"
             class="form-control"
             size="150"
             max="255"
             name="imageUrl"
-            [ngModel]=contact?.imageUrl
-            #imageUrl = "ngModel">
+            ngModel="{{contact?.imageUrl}}">
         </div>
       </div>
 
@@ -87,4 +86,3 @@
     </form>
   </div>
 </div>
-

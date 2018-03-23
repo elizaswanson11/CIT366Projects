@@ -25,23 +25,19 @@ export class ContactEditComponent implements OnInit {
     this.route.params
       .subscribe(
         (params: Params) => {
-          // id = value of id parameter in params list
-          const id = params['id'];
-          // if id parameter is undefined or null then set editMode to false
+          var id = params['id'];
           if (!id) {
             this.editMode = false;
             return;
           }
-
           this.originalContact = this.contactService.getContact(id);
-          if (this.originalContact) {
+          if (!this.originalContact) {
             return;
           }
           // set editMode to true
           this.editMode = true;
-          // this.document = clone of this.originalDocument (parse
           this.contact = JSON.parse(JSON.stringify(this.originalContact));
-          if (this.contact.group) {
+          if (this.hasGroup) {
             this.contact.group = this.contact.group.slice();
           }
         }
@@ -49,15 +45,15 @@ export class ContactEditComponent implements OnInit {
   }
   onSubmit(form: NgForm) {
     //   values = form.value // get values from form’s fields
-    const values = form.value;
-    let newContact = new Contact('1', values.name, values.email, values.phone, values.url, null);
-    if (this.editMode = true) {
+    console.log(this.editMode);
+    let newContact = new Contact(String(this.contactService.getMaxId()), form.value.name, form.value.email, form.value.phone, form.value.url, null);
+    if (this.editMode === true) {
       this.contactService.updateContact(this.originalContact, newContact);
     } else {
       this.contactService.addContact(newContact);
     };
     //   route back to the '/documents' URL
-    this.router.navigate(['/contacts'], { relativeTo: this.route });
+    this.router.navigate(['/contacts']);
   }
 
   onCancel() {

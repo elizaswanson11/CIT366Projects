@@ -2,7 +2,6 @@ import { Injectable, Output, EventEmitter} from "@angular/core";
 import {Contact} from './contact.model';
 import { MOCKCONTACTS} from "./MOCKCONTACTS";
 import {Subject} from "rxjs/Subject";
-import {Document} from "../documents/document.model";
 
 @Injectable()
 export class ContactService {
@@ -16,6 +15,7 @@ export class ContactService {
     this.maxContactId = this.getMaxId();
   }
   getContacts(): Contact[] {
+    console.log(this.contacts.slice());
     return this.contacts.slice();
   }
   getContact(id: string): Contact {
@@ -49,7 +49,7 @@ export class ContactService {
   }
 
   updateContact(originalContact: Contact,
-                 newContact: Contact) {
+                updatedContact: Contact) {
     if (!originalContact) {
       return;
     }
@@ -59,10 +59,9 @@ export class ContactService {
       return;
     }
 
-    newContact.id = originalContact.id;
-    this.contacts[pos] = newContact;
-    var contactsListClone = this.contacts.slice();
-    this.contactListChangedEvent.next(contactsListClone)
+    updatedContact.id = originalContact.id;
+    this.contacts[pos] = updatedContact;
+    this.contactListChangedEvent.next(this.getContacts());
 
   }
 
@@ -75,10 +74,8 @@ export class ContactService {
     if (pos < 0) {
       return;
     }
-
-    this.contacts = this.contacts.splice(pos, 1);
-    var contactsListClone = this.contacts.slice();
-    this.contactListChangedEvent.next(contactsListClone);
+    this.contacts.splice(pos, 1);
+    this.contactListChangedEvent.next(this.contacts);
   }
 }
 

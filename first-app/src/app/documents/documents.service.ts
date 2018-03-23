@@ -10,8 +10,6 @@ export class DocumentsService {
 
   documents: Document[] = [];
 
-
-
   @Output() documentSelectedEvent: EventEmitter<Document> = new EventEmitter<Document>();
   @Output() documentChangedEvent: EventEmitter<Document[]> = new EventEmitter<Document[]>();
   documentListChangedEvent = new Subject<Document[]>();
@@ -80,7 +78,7 @@ export class DocumentsService {
     }
     updatedDocument.id = originalDocument.id;
     this.documents[pos] = updatedDocument;
-    this.documentListChangedEvent.next(this.getDocuments())
+    this.documentListChangedEvent.next(this.getDocuments());
   }
 
   deleteDocument(document: Document) {
@@ -92,7 +90,6 @@ export class DocumentsService {
       return;
     }
     this.documents.splice(pos, 1);
-    console.log(this.documents);
     this.documentListChangedEvent.next(this.documents);
   }
 

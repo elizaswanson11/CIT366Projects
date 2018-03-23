@@ -8,12 +8,11 @@ import { ContactService} from "./contact.service";
   styleUrls: ['./contacts.component.css'],
   providers: [ContactService]
 })
+
 @Injectable()
 export class ContactsComponent implements OnInit {
   selectedContact: Contact = null;
-
-  constructor(private contactService: ContactService) {
-  }
+  constructor(private contactService: ContactService) { }
 
   ngOnInit() {
     this.contactService.contactSelectedEvent.subscribe((contact: Contact) => {
