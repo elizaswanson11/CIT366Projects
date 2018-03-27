@@ -235,7 +235,7 @@ export const MOCKCONTACTS: Contact[] = [
       name: 'Michael McLaughlin',
       email: 'mclaughlinm@byui.edu',
       phone: '208-496-3772',
-      imageUrl: '../../assets/images/mclaughlinm.jpg',
+      imageUrl: '../assets/images/mclaughlinm.jpg',
       group: null
     },
     {
@@ -243,7 +243,7 @@ export const MOCKCONTACTS: Contact[] = [
       name: 'Brent Morring',
       email: 'morringb@byui.edu',
       phone: '208-496-3778',
-      imageUrl: '../../assets/images/morringb.jpg',
+      imageUrl: '../assets/images/morringb.jpg',
       group: null
     }
   ]
@@ -257,7 +257,7 @@ export const MOCKCONTACTS: Contact[] = [
       name: 'Kory Godfrey',
       email: 'godfreyko@byui.edu',
       phone: '208-496-3770',
-      imageUrl: '../../assets/images/godfreyko.jpg',
+      imageUrl: '../assets/images/godfreyko.jpg',
       group: null
     },
     {
@@ -265,7 +265,7 @@ export const MOCKCONTACTS: Contact[] = [
       name: 'Craig Lindstrom',
       email: 'lindstromc@byui.edu',
       phone: '208-496-3769',
-      imageUrl: '../../assets/images/lindstromc.jpg',
+      imageUrl: '../assets/images/lindstromc.jpg',
       group: null
     },
     {
@@ -273,7 +273,7 @@ export const MOCKCONTACTS: Contact[] = [
       name: 'Steven Rigby',
       email: 'rigbys@byui.edu',
       phone: '208-496-3774',
-      imageUrl: '../../assets/images/rigbys.jpg',
+      imageUrl: '../assets/images/rigbys.jpg',
       group: null
     }
   ]

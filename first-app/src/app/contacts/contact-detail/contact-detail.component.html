@@ -12,5 +12,8 @@
 <div class="panel-body">
   <p>Email: {{ contact?.email }}</p>
   <p>Phone: {{ contact?.phone }}</p>
+  <div>
+    <app-contact-item *ngFor="let contact of contact?.group" [contact]="contact"></app-contact-item>
+  </div>
 </div>
 </div>

@@ -66,7 +66,6 @@
         <div class="row" id="groupList"
              style="min-height: 3rem;"
              dnd-droppable dropZones="['contactGroup']" (onDropSuccess)="addToGroup($event)">
-
           <div *ngFor="let contact of groupContacts; let i = index">
             <div>
               <app-contact-item class="col-sm-11" [contact]="contact"></app-contact-item>
@@ -75,8 +74,8 @@
           </div>
           <span class="dragMsg" *ngIf="groupContacts?.length < 1">Drag contacts in group here</span>
         </div>
-
       </div>
+      <div class="alert alert-danger" *ngIf="invalidGroupContact === true">Cannot add to contact list.</div>
       <div class="row">
         <div class="alert alert-danger" *ngIf="!name.valid && name.touched || !email.valid && email.touched">The name and email are required.</div>
         <div class="col-xs-12">
