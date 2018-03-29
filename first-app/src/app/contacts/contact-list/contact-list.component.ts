@@ -13,6 +13,7 @@ import {Subscription} from "rxjs/Subscription";
 export class ContactListComponent implements OnInit, OnDestroy {
   //custom EventEmitter object whose data type is of the Contact data type
   subscription: Subscription;
+  term: string = '';
 
   constructor(private contactService: ContactService) {}
 
@@ -34,6 +35,10 @@ export class ContactListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  onKeyPress(value: string) {
+    this.term = value;
   }
 
 }
