@@ -1,7 +1,8 @@
 import { Injectable, Output, EventEmitter} from "@angular/core";
 import {Contact} from './contact.model';
-import { MOCKCONTACTS} from "./MOCKCONTACTS";
 import {Subject} from "rxjs/Subject";
+import {Headers, Response} from "@angular/http";
+import {Http} from "@angular/http";
 
 @Injectable()
 export class ContactService {
@@ -10,8 +11,8 @@ export class ContactService {
   @Output() contactSelectedEvent: EventEmitter<Contact> = new EventEmitter<Contact>();
   @Output() contactChangedEvent: EventEmitter<Contact[]> = new EventEmitter<Contact[]>();
   contactListChangedEvent =  new Subject<Contact[]>();
-  constructor() {
-    this.contacts = MOCKCONTACTS;
+  constructor(private http: Http) {
+    this.initContacts();
     this.maxContactId = this.getMaxId();
   }
   getContacts(): Contact[] {
@@ -43,7 +44,7 @@ export class ContactService {
     newContact.id = this.maxContactId.toString();
     //push newDocument onto the documents list
     this.contacts.push(newContact);
-    this.contactListChangedEvent.next(this.contacts.slice());
+    this.storeContacts(this.contacts.slice());
     // documentsListClone = documents.slice()
     // documentListChangedEvent.next(documentsListClone)
   }
@@ -61,7 +62,7 @@ export class ContactService {
 
     updatedContact.id = originalContact.id;
     this.contacts[pos] = updatedContact;
-    this.contactListChangedEvent.next(this.getContacts());
+    this.storeContacts(this.getContacts());
 
   }
 
@@ -75,7 +76,31 @@ export class ContactService {
       return;
     }
     this.contacts.splice(pos, 1);
-    this.contactListChangedEvent.next(this.contacts);
+    this.storeContacts(this.contacts);
   }
+
+  initContacts() {
+    return this.http.get('https://angular-and-nodejs.firebaseio.com/contacts.json')
+      .map(
+        (response: Response) => {
+          const data = response.json();
+          return data;
+        }
+      ).subscribe((contactsReturned: Contact[]) => {
+        this.contacts = contactsReturned;
+        this.maxContactId = this.getMaxId();
+        this.contactListChangedEvent.next(this.contacts.slice());
+      })
+  }
+
+  storeContacts(contacts: Contact[]) {
+    JSON.stringify(contacts);
+    const headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.put('https://angular-and-nodejs.firebaseio.com/contacts.json',
+      contacts,
+      {headers: headers}).subscribe(() => {
+      this.contactListChangedEvent.next(this.contacts.slice());
+    });
+  };
 }
 

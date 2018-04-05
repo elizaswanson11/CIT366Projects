@@ -1,11 +1,10 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Document } from './document.model';
-import { MOCKDOCUMENTS } from "./MOCKDOCUMENTS";
 import { Subject } from "rxjs/Subject";
 import 'rxjs/Rx' ;
 import { Http } from "@angular/http";
 import { Response } from "@angular/http";
-import {init} from "protractor/built/launcher";
+import { Headers } from '@angular/http';
 
 @Injectable()
 export class DocumentsService {
@@ -78,7 +77,7 @@ export class DocumentsService {
     newDocument.id = this.maxDocumentId.toString();
     //push newDocument onto the documents list
     this.documents.push(newDocument);
-    this.documentListChangedEvent.next(this.documents.slice());
+    this.storeDocuments(this.documents.slice());
     // documentsListClone = documents.slice()
     // documentListChangedEvent.next(documentsListClone)
   }
@@ -95,7 +94,7 @@ export class DocumentsService {
     }
     updatedDocument.id = originalDocument.id;
     this.documents[pos] = updatedDocument;
-    this.documentListChangedEvent.next(this.getDocuments());
+    this.storeDocuments(this.getDocuments());
   }
 
   deleteDocument(document: Document) {
@@ -107,8 +106,18 @@ export class DocumentsService {
       return;
     }
     this.documents.splice(pos, 1);
-    this.documentListChangedEvent.next(this.documents);
+    this.storeDocuments(this.documents);
   }
+
+  storeDocuments(documents: Document[]) {
+    JSON.stringify(documents);
+    const headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.put('https://angular-and-nodejs.firebaseio.com/documents.json',
+      documents,
+      {headers: headers}).subscribe(() => {
+       this.documentListChangedEvent.next(this.documents.slice());
+    });
+  };
 
 
 
